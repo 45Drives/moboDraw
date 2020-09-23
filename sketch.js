@@ -1,18 +1,33 @@
+/******************************************************************************/
+// moboDraw: Used to trace images of motherboards and produce consistently
+//           styled images for use with 45Drives/cockpit-hardware. It will
+//           also generate a .json file that can be inspected to obtain
+//           positional information about the components in the image. 
+//
+// Copyright (C) 2020, Mark Hooper   <mhooper@45drives.com>
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//   
+/******************************************************************************/
+
+/********************************************************/
+/* GLOBAL VARIABLES                                     */
+/********************************************************/
+//mouse variables
 var lock = false;
 var mx0 = 0.0;
 var my0 = 0.0;
 var mx1 = 0.0;
 var my1 = 0.0;
-var drawType = "circle";
 var diam = 0.0;
+
+//Component variables
 var COMPONENTS = [];
-var mode = "normal"
-var backgroundImage;
-var showBackground = true;
-var browse;
-var saveButton;
-let sel;
-let compCurrent = "board_outline"
+var sel;
+var compCurrent = "board_outline"
+var componentCopy;
 var compSel = {
   board_outline:["round_rect",false,"#00800080",0,0],
   cpu:["rect",true,"#40404080",0,0],
@@ -22,19 +37,32 @@ var compSel = {
   cmos_battery:["circle",false,"#80808080",0,0],
   atx_holes:["circle",false,"#00000080",0,0]
 };
-
-var round_amt = 10;
-
-var componentCopy;
-
-let IMAGES = [];
-let IMAGE_PATHS = [
+var IMAGES = [];
+var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimmwhite.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci16xblack.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci8xblack.png"
 ];
 
+//program state
+var mode = "normal" //either "normal" or "copy"
+
+//Background image selection
+var backgroundImage;
+var showBackground = true;
+var browse;
+
+//buttons
+var saveButton;
+
+//shape variables
+var round_amt = 10;
+
+/********************************************************/
+/* CLASSES                                              */
+/********************************************************/
+// each object that can be drawn is a component. 
 class component{
   constructor(type,shape,fill_color,x0,y0,x1,y1,diam,im,id){
     this.type = type;
@@ -78,16 +106,21 @@ class component{
   }
 }
 
-
+/********************************************************/
+/* p5 Functions                                         */
+/********************************************************/
+// the callback function required to draw an image. 
 function drawImage(im,x,y,w,h){
     image(im,x,y,w,h);
 }
 
+//pre-load loads the images into memory before setup
 function preload() {
   for(let i = 0; i < IMAGE_PATHS.length; i++){
     IMAGES.push(loadImage(IMAGE_PATHS[i]))
   }
 }
+
 
 function setup() {
   createCanvas(800, 600);
@@ -96,6 +129,8 @@ function setup() {
   loadImage(IMAGE_PATHS[2], ptr2 => drawImage(IMAGES[2],10,10,10,10) );
   loadImage(IMAGE_PATHS[3], ptr3 => drawImage(IMAGES[3],10,10,10,10) );
   
+  //create a drop down menu to select which component
+  //you would like to draw
   sel = createSelect();
   sel.position(width + 10, 80);
   sel.option('board_outline');
@@ -108,20 +143,28 @@ function setup() {
   sel.selected('board_outline');
   sel.changed(mySelectEvent);
   
+  //create a browse button. Browse for the image that you want
+  //to trace, and this will be the background. 
   browse = createFileInput(loadBG);
   browse.position(width + 10, 0);
   
+  //creates a button used to save the image as a .png
+  //and a .json file for further use in cockpit-hardware
   saveButton = createButton('save');
   saveButton.position(width + 10, 40);
   saveButton.mousePressed(saveFiles);
 }
 
+//This is called every frame
 function draw() {
   background(255,255,255);
+
+  // draw the loaded background image (toggle flag by typing 'b')
   if(backgroundImage && showBackground){
     image(backgroundImage,0,0);
   }
   
+  //draw all components 
   for(let i = 0; i < COMPONENTS.length; i++){
     COMPONENTS[i].display();
   }
@@ -154,6 +197,7 @@ function draw() {
     }    
   }
   else if (mode == "copy"){
+    //update the copy preview image to follow the mouse
     if (componentCopy){
       componentCopy.x0 = mouseX;
       componentCopy.y0 = mouseY;
@@ -162,6 +206,9 @@ function draw() {
   }
 }
 
+/********************************************************/
+/* EVENT HANDLERS                                       */
+/********************************************************/
 function mousePressed() {
   if((0 < mouseX && mouseX < width) && (0 < mouseY && mouseY < height) && mode == "normal"){
     lock = true;
@@ -174,39 +221,39 @@ function mousePressed() {
 
 function mouseReleased() {
   if(mode == "normal"){
-  if(lock){
-    if(compSel[compCurrent][1]){
-      COMPONENTS.push(
-        new component(
-          compCurrent,
-          compSel[compCurrent][0],
-          compSel[compCurrent][2],
-          mx0,
-          my0,
-          mx1,
-          my1,
-          diam,
-          IMAGES[compSel[compCurrent][3]],
-          compSel[compCurrent][4]
+    if(lock){
+      if(compSel[compCurrent][1]){
+        COMPONENTS.push(
+          new component(
+            compCurrent,
+            compSel[compCurrent][0],
+            compSel[compCurrent][2],
+            mx0,
+            my0,
+            mx1,
+            my1,
+            diam,
+            IMAGES[compSel[compCurrent][3]],
+            compSel[compCurrent][4]
+          )
         )
-      )
-    }
-    else{
-      COMPONENTS.push(
-        new component(
-          compCurrent,
-          compSel[compCurrent][0],
-          compSel[compCurrent][2],
-          mx0, my0, mx1, my1,
-          diam,
-          null,
-          compSel[compCurrent][4]
+      }
+      else{
+        COMPONENTS.push(
+          new component(
+            compCurrent,
+            compSel[compCurrent][0],
+            compSel[compCurrent][2],
+            mx0, my0, mx1, my1,
+            diam,
+            null,
+            compSel[compCurrent][4]
+          )
         )
-      )
+      }
+      compSel[compCurrent][4]++;
     }
-    compSel[compCurrent][4]++;
-  }
-  lock = false;
+    lock = false;
   }
   else if(mode == "copy"){
     if(componentCopy){
@@ -232,6 +279,7 @@ function keyTyped() {
   if (key === "u"){
     //undo
     COMPONENTS.pop();
+    if(compSel[compCurrent][4] > 0) compSel[compCurrent][4]--;    
   }
   else if (key === "c"){
     //enter copy mode
@@ -262,10 +310,13 @@ function keyTyped() {
   }
 }
 
+// The string inside the drop down is the new value of compCurrent. 
+// compCurrent is the key for the compSel dictionary 
 function mySelectEvent() {
   compCurrent = sel.value();
 }
 
+// loads the background file
 function loadBG(file){
   if(file.type === 'image'){
     backgroundImage = createImg(file.data, '');
@@ -276,11 +327,19 @@ function loadBG(file){
   }
 }
 
+// calculates the bounding area around all components.
+// saves that portion of the canvas to a .png file
+// Then a .json struct is created by iterating through
+// the array of components, and extracting the 
+// relevant fields, and adjusting for the "new origin"
+// that resulted from the cropped canvas. 
 function saveFiles(){
   var x_min = width;
   var y_min = height;
   var x_max = 0.0;
   var y_max = 0.0;
+
+  // calculate the smallest area required to contain all components
   for(let i = 0; i < COMPONENTS.length; i++){
     if(COMPONENTS[i].x0 <= x_min) x_min = COMPONENTS[i].x0;
     if(COMPONENTS[i].y0 <= y_min) y_min = COMPONENTS[i].y0;
@@ -292,14 +351,22 @@ function saveFiles(){
     }
   }
   
+  // save the calculated portion of the canvas 
   var to_save = get(x_min,y_min,x_max-x_min,y_max-y_min);
+
+  //inspect the browse object to get the name of the
+  //file that was selected by the user. Parse this
+  //to obtain the file name.
   var bstr = browse.value();
   var dot_remove = split(bstr,'.');
   var path_remove = split(dot_remove[0],'\\');
   var fname = path_remove[2];
   png_name = fname + ".png"
-  to_save.save(png_name);
+  to_save.save(png_name); //saves the image
   
+  //go through the array of components, and 
+  //extract the relevant fields that we want to export
+  //to a .json file
   let positions = [];
   let comp;
   
@@ -316,5 +383,5 @@ function saveFiles(){
     positions.push(comp);
   }
   
-  saveJSON(positions,fname+".json");
+  saveJSON(positions,fname+".json"); //saves the .json file
 }
