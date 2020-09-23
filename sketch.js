@@ -29,7 +29,7 @@ var componentCopy;
 
 let IMAGES = [];
 let IMAGE_PATHS = [
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/X11DPL-i.jpg",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimmwhite.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci16xblack.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci8xblack.png"
