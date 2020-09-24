@@ -45,7 +45,7 @@ const ATX_HOLES_IDX = 4;
 //      ]
 var compSel = {
   board_outline:["round_rect",false,"#00800080",0,0],
-  cpu:["rect",true,"#40404080",CPU_IDX,0],
+  cpu:["rect",true,"#40404000",CPU_IDX,0],
   pci_8x_black:["rect",true,"#00000080",PCI_8X_BLACK_IDX,0],
   pci_16x_black:["rect",true,"#00000080",PCI_16X_BLACK_IDX,0],
   dimm_blue:["rect",true,"#A0909080",DIMM_BLUE_IDX,0],
