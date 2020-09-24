@@ -142,7 +142,6 @@ function preload() {
   }
 }
 
-
 function setup() {
   createCanvas(800, 600);
 
@@ -174,7 +173,7 @@ function setup() {
 
 //This is called every frame
 function draw() {
-  background(0,0,0);
+  background(255,255,255);
 
   // draw the loaded background image (toggle flag by typing 'b')
   if(backgroundImage && showBackground){
