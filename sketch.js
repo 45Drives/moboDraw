@@ -143,28 +143,14 @@ function drawImage(im,x,y,w,h){
 
 //pre-load loads the images into memory before setup
 function preload() {
-//  for(let i = 0; i < IMAGE_PATHS.length; i++){
-//    IMAGES.push(loadImage(IMAGE_PATHS[i]))
-//  }
-  CPU = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png");
-  DIMM_BLUE = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png");
-  PCI_16x_BLACK = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_16x_black.png");
-  PCI_8x_BLACK = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_8x_black.png");
-  ATX_HOLES = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png");
-  VGA = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/vga.png");
+  for(let i = 0; i < IMAGE_PATHS.length; i++){
+    IMAGES.push(loadImage(IMAGE_PATHS[i]))
+  }
 }
 
 
 function setup() {
   createCanvas(800, 600);
-
-IMAGES.push(CPU);
-IMAGES.push(DIMM_BLUE);
-IMAGES.push(PCI_16x_BLACK);
-IMAGES.push(PCI_8x_BLACK);
-IMAGES.push(ATX_HOLES);
-IMAGES.push(VGA);
-
 
   //create a drop down menu to select which component
   //you would like to draw
@@ -201,8 +187,6 @@ function draw() {
     image(backgroundImage,0,0);
   }
   
-  image(CPU,0,0);
-
   //draw all components 
   for(let i = 0; i < COMPONENTS.length; i++){
     COMPONENTS[i].display();
