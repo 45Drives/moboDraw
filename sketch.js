@@ -30,13 +30,7 @@ var sel;
 var compCurrent = "board_outline"
 var componentCopy;
 
-let CPU;
-let DIMM_BLUE;
-let PCI_16x_BLACK;
-let PCI_8x_BLACK;
-let ATX_HOLES;
-let VGA;
-
+//component indices
 const CPU_IDX = 0;
 const DIMM_BLUE_IDX = 1;
 const PCI_16X_BLACK_IDX = 2;
