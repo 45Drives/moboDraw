@@ -140,10 +140,11 @@ function preload() {
 
 function setup() {
   createCanvas(800, 600);
-  loadImage(IMAGE_PATHS[0], ptr0 => drawImage(IMAGES[0],10,10,10,10) );
-  loadImage(IMAGE_PATHS[1], ptr1 => drawImage(IMAGES[1],10,10,10,10) );
-  loadImage(IMAGE_PATHS[2], ptr2 => drawImage(IMAGES[2],10,10,10,10) );
-  loadImage(IMAGE_PATHS[3], ptr3 => drawImage(IMAGES[3],10,10,10,10) );
+  //loadImage(IMAGE_PATHS[0], ptr0 => drawImage(IMAGES[0],10,10,10,10) );
+  //loadImage(IMAGE_PATHS[1], ptr1 => drawImage(IMAGES[1],10,10,10,10) );
+  //loadImage(IMAGE_PATHS[2], ptr2 => drawImage(IMAGES[2],10,10,10,10) );
+  //loadImage(IMAGE_PATHS[3], ptr3 => drawImage(IMAGES[3],10,10,10,10) );
+  //IMAGES[0].mask(IMAGES[1]);
   
   //create a drop down menu to select which component
   //you would like to draw
@@ -173,7 +174,7 @@ function setup() {
 
 //This is called every frame
 function draw() {
-  background(255,255,255);
+  background(0,0,0);
 
   // draw the loaded background image (toggle flag by typing 'b')
   if(backgroundImage && showBackground){
