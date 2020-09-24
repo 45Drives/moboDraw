@@ -30,11 +30,19 @@ var sel;
 var compCurrent = "board_outline"
 var componentCopy;
 
+let CPU;
+let DIMM_BLUE;
+let PCI_16x_BLACK;
+let PCI_8x_BLACK;
+let ATX_HOLES;
+let VGA;
+
 const CPU_IDX = 0;
 const DIMM_BLUE_IDX = 1;
 const PCI_16X_BLACK_IDX = 2;
 const PCI_8X_BLACK_IDX = 3;
 const ATX_HOLES_IDX = 4;
+const VGA_IDX = 5;
 
 // compSel format: [
 //        shape, 
@@ -58,7 +66,8 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_16x_black.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_8x_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/vga.png"
 ];
 
 //program state
@@ -95,14 +104,16 @@ class component{
   
   display(){
     push();
-    stroke(0,0,0);
+    stroke(0,0,0,0);
     if(this.shape == "circle" && this.im != null){
       imageMode(CENTER);
+      noFill();
       drawImage(this.im,this.x0,this.y0,this.diam,this.diam);
       circle(this.x0, this.y0, this.diam);
     }
     else if(this.shape == "rect" && this.im != null){
       imageMode(CORNER)
+      noFill();
       rect(this.x0,this.y0,this.x1,this.y1);
       drawImage(this.im,this.x0,this.y0,this.x1,this.y1);
     }
@@ -132,20 +143,29 @@ function drawImage(im,x,y,w,h){
 
 //pre-load loads the images into memory before setup
 function preload() {
-  for(let i = 0; i < IMAGE_PATHS.length; i++){
-    IMAGES.push(loadImage(IMAGE_PATHS[i]))
-  }
+//  for(let i = 0; i < IMAGE_PATHS.length; i++){
+//    IMAGES.push(loadImage(IMAGE_PATHS[i]))
+//  }
+  CPU = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png");
+  DIMM_BLUE = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png");
+  PCI_16x_BLACK = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_16x_black.png");
+  PCI_8x_BLACK = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_8x_black.png");
+  ATX_HOLES = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png");
+  VGA = loadImage("https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/vga.png");
 }
 
 
 function setup() {
   createCanvas(800, 600);
-  //loadImage(IMAGE_PATHS[0], ptr0 => drawImage(IMAGES[0],10,10,10,10) );
-  //loadImage(IMAGE_PATHS[1], ptr1 => drawImage(IMAGES[1],10,10,10,10) );
-  //loadImage(IMAGE_PATHS[2], ptr2 => drawImage(IMAGES[2],10,10,10,10) );
-  //loadImage(IMAGE_PATHS[3], ptr3 => drawImage(IMAGES[3],10,10,10,10) );
-  //IMAGES[0].mask(IMAGES[1]);
-  
+
+IMAGES.push(CPU);
+IMAGES.push(DIMM_BLUE);
+IMAGES.push(PCI_16x_BLACK);
+IMAGES.push(PCI_8x_BLACK);
+IMAGES.push(ATX_HOLES);
+IMAGES.push(VGA);
+
+
   //create a drop down menu to select which component
   //you would like to draw
   sel = createSelect();
@@ -181,6 +201,8 @@ function draw() {
     image(backgroundImage,0,0);
   }
   
+  image(CPU,0,0);
+
   //draw all components 
   for(let i = 0; i < COMPONENTS.length; i++){
     COMPONENTS[i].display();
