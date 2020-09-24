@@ -29,21 +29,36 @@ var COMPONENTS = [];
 var sel;
 var compCurrent = "board_outline"
 var componentCopy;
+
+const CPU_IDX = 0;
+const DIMM_BLUE_IDX = 1;
+const PCI_16X_BLACK_IDX = 2;
+const PCI_8X_BLACK_IDX = 3;
+const ATX_HOLES_IDX = 4;
+
+// compSel format: [
+//        shape, 
+//        if we are using an image, 
+//        fill color, 
+//        index into images array for image,
+//        current amount of components of that type present 
+//      ]
 var compSel = {
   board_outline:["round_rect",false,"#00800080",0,0],
-  cpu:["rect",true,"#40404080",0,0],
-  pci_8x_black:["rect",true,"#00000080",3,0],
-  pci_16x_black:["rect",true,"#00000080",2,0],
-  dimm_white:["rect",true,"#A0909080",1,0],
+  cpu:["rect",true,"#40404080",CPU_IDX,0],
+  pci_8x_black:["rect",true,"#00000080",PCI_8X_BLACK_IDX,0],
+  pci_16x_black:["rect",true,"#00000080",PCI_16X_BLACK_IDX,0],
+  dimm_blue:["rect",true,"#A0909080",DIMM_BLUE_IDX,0],
   cmos_battery:["circle",false,"#80808080",0,0],
-  atx_holes:["circle",false,"#00000080",0,0]
+  atx_holes:["circle",false,"#00000080",ATX_HOLES_IDX,0]
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimmwhite.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci16xblack.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci8xblack.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_16x_black.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_8x_black.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png"
 ];
 
 //program state
@@ -138,7 +153,7 @@ function setup() {
   sel.option('cpu');
   sel.option('pci_8x_black');
   sel.option('pci_16x_black');
-  sel.option('dimm_white');
+  sel.option('dimm_blue');
   sel.option('cmos_battery');
   sel.option('atx_holes');
   sel.selected('board_outline');
