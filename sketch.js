@@ -143,7 +143,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(1024, 1024);
 
   //create a drop down menu to select which component
   //you would like to draw
