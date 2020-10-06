@@ -43,6 +43,8 @@ const RJ45_IDX = 8;
 const SATA_ORANGE_IDX = 9;
 const SATA_WHITE_IDX = 10;
 const DIMM_WHITE_IDX = 11;
+const BOARD_OUTLINE_IDX = 12;
+const BOARD_OUTLINE_TRANSPARENT_IDX = 13;
 
 // compSel format: [
 //        shape, 
@@ -52,7 +54,7 @@ const DIMM_WHITE_IDX = 11;
 //        id counter starting number 
 //      ]
 var compSel = {
-  board_outline:["round_rect",false,"#00A00080",0,0],
+  board_outline:["rect",true,"#00A00080",BOARD_OUTLINE_TRANSPARENT_IDX,0],
   cpu:["rect",true,"#40404000",CPU_IDX,1],
   pci_8x_black:["rect",true,"#00000080",PCI_8X_BLACK_IDX,1],
   pci_16x_black:["rect",true,"#00000080",PCI_16X_BLACK_IDX,1],
@@ -68,10 +70,10 @@ var compSel = {
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cpu.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpu.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_16x_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/pci_8x_black.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_16x_black.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_8x_black.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/vga.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cmos_battery.png",
@@ -79,7 +81,9 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/rj45.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/sata_orange.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/sata_white.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_white.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_white.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png"
 ];
 
 //program state
@@ -112,8 +116,105 @@ class component{
     this.diam = diam;
     this.im = im;
     this.id = id;
+    this.mask = createImage(backgroundImage.width,backgroundImage.height);
+    this.maskCreated = false;
   }
   
+  generateMask(w,h){
+    if(!this.maskCreated){
+      let padding = 50;
+
+      this.mask.loadPixels();
+      for(let i = 0; i < w; i++){
+        for(let j = 0; j < h; j++){
+          if((i > this.x0) && (i < this.x0 + this.x1) &&
+            (j > this.y0) && (j < this.y0 + this.y1)){
+            // inside footprint of component.
+            this.mask.set(i, j, color(0, 0, 0, 0));
+          }
+          else if((i > this.x0 - padding) && (i < this.x0 -padding + this.x1 + 2*padding) &&
+            (j > this.y0-padding) && (j < this.y0 - padding + this.y1 + 2*padding)){
+            //inside transition between box and background.
+            let falloff_x;
+            let falloff_y;
+            let x_map;
+            let y_map;
+            let r_map;
+            let corner=false;
+            let y;
+            let x;
+            let r;
+
+            if(i < this.x0 && j < this.y0){
+              //top left
+              x = this.x0 - i;
+              y = this.y0 - j;
+              r = sqrt(x*x + y*y);
+              r_map = map(r,0,padding,0,128,true);
+              this.mask.set(i,j,color(0,0,0,r_map));
+              corner = true;
+            }else if(i > this.x0 + this.x1 && j < this.y0 ){
+              //top right
+              x = this.x0 + this.x1 - i;
+              y = this.y0 - j;
+              r = int(sqrt(x*x + y*y));
+              r_map = map(r,0,padding,0,128,true);
+              this.mask.set(i,j,color(0,0,0,r_map));
+              corner = true;
+            }
+            else if(i < this.x0 && j > this.y0 + this.y1){
+              //bottom left
+              x = this.x0 - i;
+              y = this.y0 + this.y1 - j;
+              r = int(sqrt(x*x + y*y));
+              r_map = map(r,0,padding,0,128,true);
+              this.mask.set(i,j,color(0,0,0,r_map));
+              corner = true;
+            }
+            else if(i > this.x0 + this.x1 && j > this.y0 + this.y1) {
+              //bottom right
+              x = this.x0 + this.x1 - i;
+              y = this.y0 + this.y1 - j;
+              r = int(sqrt(x*x + y*y));
+              r_map = map(r,0,padding,0,128,true);
+              this.mask.set(i,j,color(0,0,0,r_map));
+              corner = true;
+            }
+
+            if(!corner){
+              if(i < this.x0){
+                falloff_x = this.x0 - i;
+              }
+              else{
+                falloff_x = i - (this.x0 + this.x1);
+              }
+              if(j < this.y0){
+                falloff_y = this.y0 - j;
+              }
+              else{
+                falloff_y = j - (this.y0 + this.y1);
+              }
+              x_map = map(falloff_x,0,padding,0,128);
+              y_map = map(falloff_y,0,padding,0,128);
+              if(x_map > y_map){
+                this.mask.set(i,j,color(0,0,0,x_map));
+              }
+              else{
+                this.mask.set(i,j,color(0,0,0,y_map));
+              }
+            }
+          }
+          else{
+            //outside box
+            this.mask.set(i, j, color(0, 0, 0, 128));
+          }
+        }
+      }
+      this.mask.updatePixels();
+      this.maskCreated = true;
+    }
+  }
+
   display(){
     push();
     stroke(0,0,0,0);
@@ -161,7 +262,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1024, 1024);
+  createCanvas(900, 750);
 
   //create a drop down menu to select which component
   //you would like to draw
@@ -201,12 +302,19 @@ function draw() {
 
   // draw the loaded background image (toggle flag by typing 'b')
   if(backgroundImage && showBackground){
+    if(backgroundImage.width != 900 || backgroundImage.height != 750){
+      backgroundImage.width = 900;
+      backgroundImage.height = 750;
+    }
     image(backgroundImage,0,0);
   }
   
   //draw all components 
   for(let i = 0; i < COMPONENTS.length; i++){
     COMPONENTS[i].display();
+    if(backgroundImage){
+      COMPONENTS[i].generateMask(backgroundImage.width,backgroundImage.height);
+    }
   }
   
   //draw current shape
@@ -242,6 +350,16 @@ function draw() {
       componentCopy.x0 = mouseX;
       componentCopy.y0 = mouseY;
       componentCopy.display();
+    }
+  }
+  else if (mode == "mask"){
+    for(let i = 0; i < COMPONENTS.length; i++){
+      if(COMPONENTS[i].maskCreated){
+        if((mouseX > COMPONENTS[i].x0) && (mouseX < COMPONENTS[i].x0 + COMPONENTS[i].x1) &&
+          (mouseY > COMPONENTS[i].y0) && (mouseY < COMPONENTS[i].y0 + COMPONENTS[i].y1)){
+          image(COMPONENTS[i].mask,0,0);
+        }
+      }
     }
   }
 }
@@ -347,6 +465,25 @@ function keyTyped() {
   }
   else if (key === "b"){
     showBackground = !showBackground;
+    if(showBackground){
+      for(let i = 0; i < COMPONENTS.length; i++){
+        if(COMPONENTS[i].type == "board_outline"){
+          COMPONENTS[i].im = IMAGES[BOARD_OUTLINE_TRANSPARENT_IDX];
+          break;
+        }
+      }
+    }
+    else{
+      for(let i = 0; i < COMPONENTS.length; i++){
+        if(COMPONENTS[i].type == "board_outline"){
+          COMPONENTS[i].im = IMAGES[BOARD_OUTLINE_IDX];
+          break;
+        }
+      }
+    }
+  }
+  else if (key === "m"){
+    mode = "mask";
   }
 }
 
@@ -409,7 +546,8 @@ function saveFiles(){
   //to a .json file
   let positions = [];
   let comp;
-  
+  let masks = [];
+
   for(let i = 0; i < COMPONENTS.length; i++){
     comp = {};
     comp.type = COMPONENTS[i].type;
@@ -420,8 +558,12 @@ function saveFiles(){
     comp.width = COMPONENTS[i].x1;
     comp.height = COMPONENTS[i].y1;
     comp.diam = COMPONENTS[i].diam;
+    masks.push(COMPONENTS[i].mask.get(x_min,y_min,x_max-x_min,y_max-y_min));
+    masks[i].save(COMPONENTS[i].type+COMPONENTS[i].id,"png");
     positions.push(comp);
   }
   
+
+
   saveJSON(positions,fname+".json"); //saves the .json file
 }
