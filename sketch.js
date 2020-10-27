@@ -35,7 +35,7 @@ const CPU_IDX = 0;
 const DIMM_BLUE_IDX = 1;
 const PCI_16X_BLACK_IDX = 2;
 const PCI_8X_BLACK_IDX = 3;
-const ATX_HOLES_IDX = 4;
+const USB_IDX = 4;
 const VGA_IDX = 5;
 const BATT_IDX = 6;
 const HEATSINK_L_IDX = 7;
@@ -60,28 +60,28 @@ var compSel = {
   pci_16x_black:["rect",true,"#00000080",PCI_16X_BLACK_IDX,1],
   dimm_blue:["rect",true,"#A0909080",DIMM_BLUE_IDX,1],
   cmos_battery:["circle",true,"#80808080",BATT_IDX,0],
-  atx_holes:["circle",true,"#00000080",ATX_HOLES_IDX,0],
+  usb:["circle",true,"#00000080",USB_IDX,0],
   vga:["rect",true,"#00008080",VGA_IDX,0],
   heatsink_large:["rect",true,"#00000080",HEATSINK_L_IDX,0],
   rj45:["rect",true,"#00000080",RJ45_IDX,0],
   sata_orange:["rect",true,"#80200080",SATA_ORANGE_IDX,0],
   sata_white:["rect",true,"#80808080",SATA_WHITE_IDX,0],
-  dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0],
+  dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0]
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpu.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_blue.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_blue.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_16x_black.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_8x_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/atx_holes.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/vga.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/cmos_battery.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/heatsink_large.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/rj45.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/sata_orange.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/sata_white.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/img/dimm_white.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/usb.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/vga.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cmos_battery.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/heatsink_large.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/rj45.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_white.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png"
 ];
@@ -275,7 +275,7 @@ function setup() {
   sel.option('dimm_blue');
   sel.option('dimm_white');
   sel.option('cmos_battery');
-  sel.option('atx_holes');
+  sel.option('usb');
   sel.option('vga');
   sel.option('sata_white');
   sel.option('sata_orange');
