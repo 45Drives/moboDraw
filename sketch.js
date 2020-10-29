@@ -45,6 +45,7 @@ const SATA_WHITE_IDX = 10;
 const DIMM_WHITE_IDX = 11;
 const BOARD_OUTLINE_IDX = 12;
 const BOARD_OUTLINE_TRANSPARENT_IDX = 13;
+const DIMM_BLACK_IDX = 14;
 
 // compSel format: [
 //        shape, 
@@ -67,6 +68,7 @@ var compSel = {
   sata_orange:["rect",true,"#80200080",SATA_ORANGE_IDX,0],
   sata_white:["rect",true,"#80808080",SATA_WHITE_IDX,0],
   dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0]
+  dimm_black:["rect",true,"#80808080",DIMM_BLACK_IDX,0]
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
@@ -83,7 +85,8 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_white.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_black.png"
 ];
 
 //program state
@@ -281,6 +284,7 @@ function setup() {
   sel.option('sata_orange');
   sel.option('heatsink_large');
   sel.option('rj45');
+  sel.option('dimm_black')
   sel.selected('board_outline');
   sel.changed(mySelectEvent);
   
