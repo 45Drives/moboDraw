@@ -67,7 +67,7 @@ var compSel = {
   rj45:["rect",true,"#00000080",RJ45_IDX,0],
   sata_orange:["rect",true,"#80200080",SATA_ORANGE_IDX,0],
   sata_white:["rect",true,"#80808080",SATA_WHITE_IDX,0],
-  dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0]
+  dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0],
   dimm_black:["rect",true,"#80808080",DIMM_BLACK_IDX,0]
 };
 var IMAGES = [];
