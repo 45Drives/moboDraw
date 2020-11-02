@@ -46,7 +46,12 @@ const DIMM_WHITE_IDX = 11;
 const BOARD_OUTLINE_IDX = 12;
 const BOARD_OUTLINE_TRANSPARENT_IDX = 13;
 const DIMM_BLACK_IDX = 14;
-const COM_IDX = 15
+const COM_IDX = 15;
+const CPU_V2_IDX = 16;
+const SATA_WHITE_90_IDX = 17;
+const SATA_WHITE_180_IDX = 18;
+const SATA_ORANGE_180_IDX = 19;
+
 
 // compSel format: [
 //        shape, 
@@ -70,7 +75,11 @@ var compSel = {
   sata_white:["rect",true,"#80808080",SATA_WHITE_IDX,0],
   dimm_white:["rect",true,"#80808080",DIMM_WHITE_IDX,0],
   dimm_black:["rect",true,"#80808080",DIMM_BLACK_IDX,0],
-  com:["rect",true,"#80808080",COM_IDX,0]
+  com:["rect",true,"#80808080",COM_IDX,0],
+  cpuV2:["rect",true,"#80808080",CPU_V2_IDX,0],
+  sata_white_90:["rect",true,"#80808080",SATA_WHITE_90_IDX,0],
+  sata_white_180:["rect",true,"#80808080",SATA_WHITE_180_IDX,0],
+  sata_orange_180:["rect",true,"#80808080",SATA_ORANGE_180_IDX,0],
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
@@ -89,7 +98,11 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/com.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/com.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV2.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_90.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_180.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange_180.png"
 ];
 
 //program state
@@ -287,8 +300,12 @@ function setup() {
   sel.option('sata_orange');
   sel.option('heatsink_large');
   sel.option('rj45');
-  sel.option('dimm_black')
-  sel.option('com')
+  sel.option('dimm_black');
+  sel.option('com');
+  sel.option('cpuV2');
+  sel.option('sata_white_90');
+  sel.option('sata_white_180');
+  sel.option('sata_orange_180');
   sel.selected('board_outline');
   sel.changed(mySelectEvent);
   
