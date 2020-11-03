@@ -27,7 +27,7 @@ var diam = 0.0;
 //Component variables
 var COMPONENTS = [];
 var sel;
-var compCurrent = "board_outline"
+var compCurrent = "board_outline_small"
 var componentCopy;
 
 //component indices
@@ -62,7 +62,7 @@ const CPU_V3_IDX = 20;
 //        id counter starting number 
 //      ]
 var compSel = {
-  board_outline:["rect",true,"#00A00080",BOARD_OUTLINE_TRANSPARENT_IDX,0],
+  board_outline_small:["rect",true,"#00A00080",BOARD_OUTLINE_TRANSPARENT_IDX,0],
   cpu:["rect",true,"#40404000",CPU_IDX,1],
   pci_8x_black:["rect",true,"#00000080",PCI_8X_BLACK_IDX,1],
   pci_16x_black:["rect",true,"#00000080",PCI_16X_BLACK_IDX,1],
@@ -97,8 +97,8 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_white.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_small.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent_small.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_black.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/com.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV2.png",
@@ -290,7 +290,7 @@ function setup() {
   //you would like to draw
   sel = createSelect();
   sel.position(width + 10, 80);
-  sel.option('board_outline');
+  sel.option('board_outline_small');
   sel.option('cpu');
   sel.option('pci_8x_black');
   sel.option('pci_16x_black');
@@ -310,7 +310,7 @@ function setup() {
   sel.option('sata_white_180');
   sel.option('sata_orange_180');
   sel.option('cpuV3');
-  sel.selected('board_outline');
+  sel.selected('board_outline_small');
   sel.changed(mySelectEvent);
   
   //create a browse button. Browse for the image that you want
@@ -496,7 +496,7 @@ function keyTyped() {
     showBackground = !showBackground;
     if(showBackground){
       for(let i = 0; i < COMPONENTS.length; i++){
-        if(COMPONENTS[i].type == "board_outline"){
+        if(COMPONENTS[i].type == "board_outline_small"){
           COMPONENTS[i].im = IMAGES[BOARD_OUTLINE_TRANSPARENT_IDX];
           break;
         }
@@ -504,7 +504,7 @@ function keyTyped() {
     }
     else{
       for(let i = 0; i < COMPONENTS.length; i++){
-        if(COMPONENTS[i].type == "board_outline"){
+        if(COMPONENTS[i].type == "board_outline_small"){
           COMPONENTS[i].im = IMAGES[BOARD_OUTLINE_IDX];
           break;
         }
