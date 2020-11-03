@@ -51,6 +51,7 @@ const CPU_V2_IDX = 16;
 const SATA_WHITE_90_IDX = 17;
 const SATA_WHITE_180_IDX = 18;
 const SATA_ORANGE_180_IDX = 19;
+const CPU_V3_IDX = 20;
 
 
 // compSel format: [
@@ -80,6 +81,7 @@ var compSel = {
   sata_white_90:["rect",true,"#80808080",SATA_WHITE_90_IDX,0],
   sata_white_180:["rect",true,"#80808080",SATA_WHITE_180_IDX,0],
   sata_orange_180:["rect",true,"#80808080",SATA_ORANGE_180_IDX,0],
+  cpuV3:["rect",true,"#80808080",CPU_V3_IDX,0]
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
@@ -102,7 +104,8 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV2.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_90.png",
   "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_180.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange_180.png"
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange_180.png",
+  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV3.png"
 ];
 
 //program state
@@ -306,6 +309,7 @@ function setup() {
   sel.option('sata_white_90');
   sel.option('sata_white_180');
   sel.option('sata_orange_180');
+  sel.option('cpuV3');
   sel.selected('board_outline');
   sel.changed(mySelectEvent);
   
