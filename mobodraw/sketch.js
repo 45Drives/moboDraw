@@ -150,7 +150,7 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_blue.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_black.png",
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/heatsink_bar_1.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/heatsink_bar1.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/m2slot.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/mcio4i.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pcix8.png",
