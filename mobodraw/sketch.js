@@ -53,6 +53,25 @@ const SATA_WHITE_180_IDX = 18;
 const SATA_ORANGE_180_IDX = 19;
 const CPU_V3_IDX = 20;
 
+const NEW_CPU = 21;
+const NEW_DIMM_BLUE = 22;
+const NEW_DIMM_BLACK = 23;
+const NEW_HEATSINK_BAR = 24;
+const NEW_M2_SLOT = 25;
+const NEW_MCIO_4I = 26;
+const NEW_PCI_8X = 27;
+const NEW_PCI_16X = 28;
+const NEW_PORT_WHITE_LARGE = 29;
+const NEW_PORT_WHITE_SMALL = 30;
+const NEW_PORT_WHITE = 31;
+const NEW_RJ45 = 32;
+const NEW_CMOS_BATTERY = 33;
+const NEW_SWITCH = 34;
+const NEW_TRANSISTOR_0 = 35
+const NEW_TRANSISTOR_90 = 36;
+const NEW_USB = 37;
+const NEW_BOARD_OUTLINE_BLUE_IDX = 38;
+const NEW_BOARD_OUTLINE_BLUE_TRANSPARENT_IDX = 39;
 
 // compSel format: [
 //        shape, 
@@ -81,31 +100,72 @@ var compSel = {
   sata_white_90:["rect",true,"#80808080",SATA_WHITE_90_IDX,0],
   sata_white_180:["rect",true,"#80808080",SATA_WHITE_180_IDX,0],
   sata_orange_180:["rect",true,"#80808080",SATA_ORANGE_180_IDX,0],
-  cpuV3:["rect",true,"#80808080",CPU_V3_IDX,0]
+  cpuV3:["rect",true,"#80808080",CPU_V3_IDX,0],
+
+  new_cpu:["rect", true, '#80808080', NEW_CPU, 1],
+  new_dimm_blue:["rect", true, '#80808080', NEW_DIMM_BLUE, 1],
+  new_dimm_Black:["rect", true, "#00000080", NEW_DIMM_BLACK, 1],
+  new_heatsink_bar:["rect", true, '#80808080', NEW_HEATSINK_BAR, 0],
+  new_m2_slot:["rect", true, '#80808080', NEW_M2_SLOT, 0],
+  new_mcio_4i:["rect", true, '#80808080', NEW_MCIO_4I, 0],
+  new_pci_8x:["rect", true, "#00000080", NEW_PCI_8X, 1],
+  new_pci_16x:["rect", true, "#00000080", NEW_PCI_16X, 1],
+  new_port_white_large:["rect", true, '#80808080', NEW_PORT_WHITE_LARGE, 0],
+  new_port_white_small:["rect", true, '#80808080', NEW_PORT_WHITE_SMALL, 0],
+  new_port_white:["rect", true, '#80808080', NEW_PORT_WHITE, 0],
+  new_rj45:["rect", true, '#80808080', NEW_RJ45, 0],
+  new_cmos_battery:["circle", true, '#80808080', NEW_CMOS_BATTERY, 0],
+  new_switch:["rect", true, '#80808080', NEW_SWITCH, 0],
+  new_transistor_0:["rect", true, '#80808080', NEW_TRANSISTOR_0, 0],
+  new_transistor_90:["rect", true, '#80808080', NEW_TRANSISTOR_90, 0],
+  new_usb:["rect", true, '#80808080', NEW_USB, 0],
+  new_board_outline_blue:["rect", true, '#80808080', NEW_BOARD_OUTLINE_BLUE_IDX, 0],
+  new_board_outline_blue_transparent:["rect", true, '#80808080', NEW_BOARD_OUTLINE_BLUE_TRANSPARENT_IDX, 0],
+  
 };
 var IMAGES = [];
 var IMAGE_PATHS = [
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpu.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_blue.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_16x_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/pci_8x_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/usb.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/vga.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cmos_battery.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/heatsink_large.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/rj45.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_white.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_small.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/board_outline_transparent_small.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/dimm_black.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/com.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV2.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_90.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_white_180.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/sata_orange_180.png",
-  "https://raw.githubusercontent.com/markdhooper/moboDraw/master/assets/cpuV3.png"
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cpu.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/dimm_blue.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/pci_16x_black.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/pci_8x_black.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/usb.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/vga.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cmos_battery.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/heatsink_large.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/rj45.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_orange.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/dimm_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/board_outline_small.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/board_outline_transparent_small.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/dimm_black.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/com.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cpuV2.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_white_90.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_white_180.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_orange_180.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cpuV3.png",
+
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_blue.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_black.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/heatsink_bar_1.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/m2slot.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/mcio4i.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pcix8.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pcix16.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_large_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_small_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/rj45.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/cmos_battery.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/switch.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor0.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor90.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/usb.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/me03-ce0_board_outline.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/me03-ce0_board_outline_transparent.png",
 ];
 
 //program state
