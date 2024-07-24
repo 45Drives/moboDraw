@@ -71,9 +71,13 @@ const NEW_SWITCH_HORIZONTAL = 35;
 const NEW_SWITCH_VERTICAL = 36;
 const NEW_TRANSISTOR_0 = 37;
 const NEW_TRANSISTOR_90 = 38;
-const NEW_USB = 39;
-const NEW_BOARD_OUTLINE = 40;
-const NEW_BOARD_OUTLINE_TRANSPARENT = 41;
+const NEW_TRANSISTOR_180 = 39;
+const NEW_TRANSISTOR_270 = 40;
+const NEW_USB = 41;
+const NEW_BOARD_OUTLINE = 42;
+const NEW_BOARD_OUTLINE_TRANSPARENT = 43;
+const NEW_ID_LED_BUTTON = 44;
+const NEW_PINS_BLACK = 45;
 
 // compSel format: [
 //        shape, 
@@ -122,10 +126,13 @@ var compSel = {
   new_switch_vertical:["rect", true, '#80808080', NEW_SWITCH_VERTICAL, 0],
   new_transistor_0:["circle", true, '#80808080', NEW_TRANSISTOR_0, 0],
   new_transistor_90:["circle", true, '#80808080', NEW_TRANSISTOR_90, 0],
+  new_transistor_180:["circle", true, '#80808080', NEW_TRANSISTOR_180, 0],
+  new_transistor_270:["circle", true, '#80808080', NEW_TRANSISTOR_270, 0],
   new_usb:["rect", true, '#80808080', NEW_USB, 0],
   new_board_outline:["rect", true, '#80808080', NEW_BOARD_OUTLINE, 0],
   new_board_outline_transparent:["rect", true, '#80808080', NEW_BOARD_OUTLINE_TRANSPARENT, 0],
-
+  new_id_button_led:["rect", true, '#80808080', NEW_ID_LED_BUTTON, 0],
+  new_pins_black:["rect", true, '#80808080', NEW_PINS_BLACK, 0],
   
 };
 var IMAGES = [];
@@ -152,7 +159,7 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_orange_180.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cpuV3.png",
 
- "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_blue.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_black.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/heatsink_bar1.png",
@@ -170,9 +177,13 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/switch_vertical.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor0.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor90.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor180.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor270.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/usb.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/me03-ce0_board_outline.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/me03-ce0_board_outline_transparent.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/id_button_led.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pins.png",
 ];
 
 //program state
@@ -397,9 +408,13 @@ function setup() {
   sel.option('new_switch_vertical');
   sel.option('new_transistor_0');
   sel.option('new_transistor_90');
+  sel.option('new_transistor_180');
+  sel.option('new_transistor_270');
   sel.option('new_usb');
   sel.option('new_board_outline');
   sel.option('new_board_outline_transparent');
+  sel.option('new_id_button_led');
+  sel.option('new_pins_black');
 
   sel.changed(mySelectEvent);
   
