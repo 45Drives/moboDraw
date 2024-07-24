@@ -61,17 +61,19 @@ const NEW_M2_SLOT = 25;
 const NEW_MCIO_4I = 26;
 const NEW_PCI_8X = 27;
 const NEW_PCI_16X = 28;
-const NEW_PORT_WHITE_LARGE = 29;
-const NEW_PORT_WHITE_SMALL = 30;
-const NEW_PORT_WHITE = 31;
-const NEW_RJ45 = 32;
-const NEW_CMOS_BATTERY = 33;
-const NEW_SWITCH = 34;
-const NEW_TRANSISTOR_0 = 35
-const NEW_TRANSISTOR_90 = 36;
-const NEW_USB = 37;
-const NEW_BOARD_OUTLINE_BLUE_IDX = 38;
-const NEW_BOARD_OUTLINE_BLUE_TRANSPARENT_IDX = 39;
+const NEW_POWER_WHITE_LARGE = 29;
+const NEW_POWER_WHITE_SMALL_HORIZONTAL = 30;
+const NEW_POWER_WHITE_SMALL_VERTICAL = 31;
+const NEW_FAN_CONNECTOR = 32;
+const NEW_RJ45 = 33;
+const NEW_CMOS_BATTERY = 34;
+const NEW_SWITCH_HORIZONTAL = 35;
+const NEW_SWITCH_VERTICAL = 36;
+const NEW_TRANSISTOR_0 = 37;
+const NEW_TRANSISTOR_90 = 38;
+const NEW_USB = 39;
+const NEW_BOARD_OUTLINE = 40;
+const NEW_BOARD_OUTLINE_TRANSPARENT = 41;
 
 // compSel format: [
 //        shape, 
@@ -104,23 +106,26 @@ var compSel = {
 
   new_cpu:["rect", true, '#80808080', NEW_CPU, 1],
   new_dimm_blue:["rect", true, '#80808080', NEW_DIMM_BLUE, 1],
-  new_dimm_Black:["rect", true, "#00000080", NEW_DIMM_BLACK, 1],
+  new_dimm_black:["rect", true, "#00000080", NEW_DIMM_BLACK, 1],
   new_heatsink_bar:["rect", true, '#80808080', NEW_HEATSINK_BAR, 0],
   new_m2_slot:["rect", true, '#80808080', NEW_M2_SLOT, 0],
   new_mcio_4i:["rect", true, '#80808080', NEW_MCIO_4I, 0],
   new_pci_8x:["rect", true, "#00000080", NEW_PCI_8X, 1],
   new_pci_16x:["rect", true, "#00000080", NEW_PCI_16X, 1],
-  new_port_white_large:["rect", true, '#80808080', NEW_PORT_WHITE_LARGE, 0],
-  new_port_white_small:["rect", true, '#80808080', NEW_PORT_WHITE_SMALL, 0],
-  new_port_white:["rect", true, '#80808080', NEW_PORT_WHITE, 0],
+  new_power_white_large:["rect", true, '#80808080', NEW_POWER_WHITE_LARGE, 0],
+  new_power_white_small_horizontal:["rect", true, '#80808080', NEW_POWER_WHITE_SMALL_HORIZONTAL, 0],
+  new_power_white_small_vertical:["rect", true, '#80808080', NEW_POWER_WHITE_SMALL_VERTICAL, 0],
+  new_fan_connector:["rect", true, '#80808080', NEW_FAN_CONNECTOR, 0],
   new_rj45:["rect", true, '#80808080', NEW_RJ45, 0],
   new_cmos_battery:["circle", true, '#80808080', NEW_CMOS_BATTERY, 0],
-  new_switch:["rect", true, '#80808080', NEW_SWITCH, 0],
-  new_transistor_0:["rect", true, '#80808080', NEW_TRANSISTOR_0, 0],
-  new_transistor_90:["rect", true, '#80808080', NEW_TRANSISTOR_90, 0],
+  new_switch_horizontal:["rect", true, '#80808080', NEW_SWITCH_HORIZONTAL, 0],
+  new_switch_vertical:["rect", true, '#80808080', NEW_SWITCH_VERTICAL, 0],
+  new_transistor_0:["circle", true, '#80808080', NEW_TRANSISTOR_0, 0],
+  new_transistor_90:["circle", true, '#80808080', NEW_TRANSISTOR_90, 0],
   new_usb:["rect", true, '#80808080', NEW_USB, 0],
-  new_board_outline_blue:["rect", true, '#80808080', NEW_BOARD_OUTLINE_BLUE_IDX, 0],
-  new_board_outline_blue_transparent:["rect", true, '#80808080', NEW_BOARD_OUTLINE_BLUE_TRANSPARENT_IDX, 0],
+  new_board_outline:["rect", true, '#80808080', NEW_BOARD_OUTLINE, 0],
+  new_board_outline_transparent:["rect", true, '#80808080', NEW_BOARD_OUTLINE_TRANSPARENT, 0],
+
   
 };
 var IMAGES = [];
@@ -147,7 +152,7 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/sata_orange_180.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/cpuV3.png",
 
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
+ "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/processor1.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_blue.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/dimm_black.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/heatsink_bar1.png",
@@ -155,12 +160,14 @@ var IMAGE_PATHS = [
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/mcio4i.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pcix8.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/pcix16.png",
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_large_white.png",
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_small_white.png",
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/port_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/power_large_white.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/power_small_white_horizontal.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/power_small_white_vertical.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/fan_connector.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/rj45.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/cmos_battery.png",
-  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/switch.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/switch_horizontal.png",
+  "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/switch_vertical.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor0.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/transistor90.png",
   "https://raw.githubusercontent.com/45Drives/moboDraw/master/mobodraw/assets/new/usb.png",
@@ -371,6 +378,29 @@ function setup() {
   sel.option('sata_orange_180');
   sel.option('cpuV3');
   sel.selected('board_outline_small');
+
+  sel.option('new_cpu');
+  sel.option('new_dimm_blue');
+  sel.option('new_dimm_black');
+  sel.option('new_heatsink_bar');
+  sel.option('new_m2_slot');
+  sel.option('new_mcio_4i');
+  sel.option('new_pci_8x');
+  sel.option('new_pci_16x');
+  sel.option('new_power_white_large');
+  sel.option('new_power_white_small_horizontal');
+  sel.option('new_power_white_small_vertical');
+  sel.option('new_fan_connector');
+  sel.option('new_rj45');
+  sel.option('new_cmos_battery');
+  sel.option('new_switch_horizontal');
+  sel.option('new_switch_vertical');
+  sel.option('new_transistor_0');
+  sel.option('new_transistor_90');
+  sel.option('new_usb');
+  sel.option('new_board_outline');
+  sel.option('new_board_outline_transparent');
+
   sel.changed(mySelectEvent);
   
   //create a browse button. Browse for the image that you want
